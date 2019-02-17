@@ -1,12 +1,12 @@
 # NasaApp_LPU
-![dashboard](https://imgur.com/nKjFdqd)
+![](https://i.imgur.com/nKjFdqd.jpg)
 
 ***
 
-![load](https://imgur.com/MPWOCzR)
+![](https://i.imgur.com/GteurVq.jpg)
 
 ***
 
-![detail](https://imgur.com/MPWOCzR)
+![](https://i.imgur.com/MPWOCzR.jpg)
 
 ***
