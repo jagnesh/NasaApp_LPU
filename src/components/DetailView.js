@@ -15,7 +15,7 @@ class DetailView extends Component {
 
                 <View style={styles.layer2}>
                    
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ margin: Platform.OS == 'ios' ? 44 : 10 }}>
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ marginTop: Platform.OS == 'ios' ? 44 : 10 }}>
                         <Image style={{ width: 24, height: 24 }} tintColor='#ffffff' source={require('../images/back.png')} />
                     </TouchableOpacity>
                     <OfflineNotice />
