@@ -5,6 +5,9 @@ export default styles = {
         marginRight: 2,
         marginLeft: 2
 
+    },
+    container2: {
+        flex: 1,
     }, GridStyle: {
         margin: 2,
         flex: 1,

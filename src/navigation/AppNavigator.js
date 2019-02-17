@@ -7,21 +7,24 @@ const AppNavigator = createStackNavigator({
         screen: DashboardGrid,
         navigationOptions: {
             title: 'Dashboard',
+            headerStyle: {
+                backgroundColor: '#f2f2f2',
+            }
+
         }
     },
     DetailView: {
         screen: DetailView,
         navigationOptions: {
             title: 'Detail',
+            header: null
         }
     }
 }, {
         initialRouteName: 'DashboardGrid',
         /* The header config from HomeScreen is now here */
         defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: '#f2f2f2',
-            },
+
             headerTintColor: '#000000',
             headerTitleStyle: {
                 fontWeight: 'bold',
