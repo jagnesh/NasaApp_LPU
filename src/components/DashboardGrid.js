@@ -4,6 +4,7 @@ import style from '../helpers/styles'
 import { connect } from 'react-redux'
 import { getListData } from '../acitons'
 import moment from "moment";
+import OfflineNotice from '../common/OfflineNotice';
 
 class DashboardGrid extends React.Component {
     state = {
@@ -68,6 +69,7 @@ class DashboardGrid extends React.Component {
         return (
             <SafeAreaView style={style.container}>
                 {this.props.error ? <Text style={style.errorStyle}>{this.props.error}</Text> : null}
+                
                 <FlatList
                     numColumns='2'
                     data={this.props.listData}
@@ -78,6 +80,7 @@ class DashboardGrid extends React.Component {
                     onEndReached={this.handleLoadMore}
                     onEndReachedThreshold={4}
                 />
+                <OfflineNotice />
             </SafeAreaView>
 
         )
