@@ -24,15 +24,19 @@ class DashboardGrid extends React.Component {
             if (result != null) {
                 let lastIndex = JSON.parse(result).length
                 console.log(`Last element: ${JSON.parse(result)[0].date} => First: ${JSON.parse(result)[lastIndex - 1].date}`)
+                // set offline data on flat list 
                 this.props.loadDataFromDb(result)
+                // setting state to perform next api hit which data is not available at this time 
                 this.setState({
                     startDate: moment(new Date(JSON.parse(result)[0].date)).add(-10, 'day').format("YYYY-MM-DD"),
                     endDate: moment(new Date(JSON.parse(result)[0].date)).add(-1, 'day').format("YYYY-MM-DD")
                 })
+                // check if date is not same (today and last saved data date)
                 if (JSON.parse(result)[lastIndex - 1].date != eDate) {
                     this.props.getPrependListData(moment(new Date(JSON.parse(result)[lastIndex - 1].date)).add(1, 'day').format("YYYY-MM-DD"), moment(new Date()).format("YYYY-MM-DD"))
                 }
             } else {
+                // normal api hit if data is not avilable in AsyncStorage
                 this.setState({
                     startDate: moment(new Date(sDate)).add(-10, 'day').format("YYYY-MM-DD"),
                     endDate: moment(new Date(sDate)).add(-1, 'day').format("YYYY-MM-DD")
