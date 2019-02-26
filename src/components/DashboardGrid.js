@@ -2,9 +2,10 @@ import React from 'react'
 import { ImageBackground, Text, FlatList, SafeAreaView, View, ActivityIndicator, TouchableOpacity } from 'react-native'
 import style from '../helpers/styles'
 import { connect } from 'react-redux'
-import { getListData } from '../acitons'
+import { getListData, loadDataFromDb, getPrependListData } from '../acitons'
 import moment from "moment";
 import OfflineNotice from '../common/OfflineNotice';
+import { ReadItem } from '../helpers';
 
 class DashboardGrid extends React.Component {
     state = {
@@ -16,12 +17,32 @@ class DashboardGrid extends React.Component {
     componentDidMount() {
         let sDate = this.state.startDate
         let eDate = this.state.endDate
-
-        this.setState({
-            startDate: moment(new Date(sDate)).add(-10, 'day').format("YYYY-MM-DD"),
-            endDate: moment(new Date(sDate)).add(-1, 'day').format("YYYY-MM-DD")
+        // check data in database 
+        ReadItem('NasaListData').then((result) => {
+            // if found then get first date and last date 
+            //after that get latest data from api and prepend in list and display saved data
+            if (result != null) {
+                let lastIndex = JSON.parse(result).length
+                console.log(`Last element: ${JSON.parse(result)[0].date} => First: ${JSON.parse(result)[lastIndex - 1].date}`)
+                this.props.loadDataFromDb(result)
+                this.setState({
+                    startDate: moment(new Date(JSON.parse(result)[0].date)).add(-10, 'day').format("YYYY-MM-DD"),
+                    endDate: moment(new Date(JSON.parse(result)[0].date)).add(-1, 'day').format("YYYY-MM-DD")
+                })
+                if (JSON.parse(result)[lastIndex - 1].date != eDate) {
+                    this.props.getPrependListData(moment(new Date(JSON.parse(result)[lastIndex - 1].date)).add(1, 'day').format("YYYY-MM-DD"), moment(new Date()).format("YYYY-MM-DD"))
+                }
+            } else {
+                this.setState({
+                    startDate: moment(new Date(sDate)).add(-10, 'day').format("YYYY-MM-DD"),
+                    endDate: moment(new Date(sDate)).add(-1, 'day').format("YYYY-MM-DD")
+                })
+                this.props.getListData(sDate, eDate)
+            }
+        }).catch((error) => {
+            console.log(`ReadError : ${error}`)
         })
-        this.props.getListData(sDate, eDate)
+
     }
 
     renderItemView = (item) => {
@@ -69,7 +90,7 @@ class DashboardGrid extends React.Component {
         return (
             <SafeAreaView style={style.container}>
                 {this.props.error ? <Text style={style.errorStyle}>{this.props.error}</Text> : null}
-                
+
                 <FlatList
                     numColumns='2'
                     data={this.props.listData}
@@ -78,7 +99,7 @@ class DashboardGrid extends React.Component {
                     ListFooterComponent={this.renderFooter}
                     refreshing={this.props.loading}
                     onEndReached={this.handleLoadMore}
-                    onEndReachedThreshold={4}
+                    onEndReachedThreshold={1}
                 />
                 <OfflineNotice />
             </SafeAreaView>
@@ -94,4 +115,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getListData })(DashboardGrid)
+export default connect(mapStateToProps, { getListData, loadDataFromDb, getPrependListData })(DashboardGrid)

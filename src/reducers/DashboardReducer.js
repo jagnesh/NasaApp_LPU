@@ -1,4 +1,4 @@
-import { PROCESS_START, REQUEST_SUCCESS, REQUEST_FAIL } from "../globals/Strings";
+import { PROCESS_START, REQUEST_SUCCESS, REQUEST_FAIL, PRE_REQUEST_SUCCESS } from "../globals/Strings";
 
 const INITAL_STATE = {
     listData: [],
@@ -13,6 +13,8 @@ export default (state = INITAL_STATE, action) => {
             return { ...state, loading: false, listData: [...state.listData, ...action.payload] }
         case REQUEST_FAIL:
             return { ...state, loading: false, error: action.payload }
+        case PRE_REQUEST_SUCCESS:
+            return { ...state, loading: false, listData: [...action.payload, ...state.listData] }
         default:
             return { ...state }
 
