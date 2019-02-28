@@ -1,12 +1,21 @@
 import { createStackNavigator, createAppContainer } from "react-navigation"
 import DashboardGrid from "../components/DashboardGrid";
 import DetailView from "../components/DetailView";
+import React from 'react'
+import { Button, NativeModules } from 'react-native'
 
 const AppNavigator = createStackNavigator({
     DashboardGrid: {
         screen: DashboardGrid,
         navigationOptions: {
             title: 'Dashboard',
+            headerRight: (
+                <Button
+                    onPress={() => NativeModules.NavigateTo.OpenNewView()}
+                    title="Open"
+                    color="#000"
+                />
+            ),
             headerStyle: {
                 backgroundColor: '#f2f2f2',
             }
