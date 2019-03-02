@@ -16,10 +16,17 @@ public class NavigateTo extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void OpenNewView() {
-        Intent intent = new Intent(getCurrentActivity(), DemoActivity.class);
-        getReactApplicationContext().startActivity(intent);
+      /*  Intent intent = new Intent(getCurrentActivity(), DemoActivity.class);
+        getReactApplicationContext().startActivity(intent);*/
 
         System.out.println("Bulb is turn ON");
+    }
+    @ReactMethod
+    public  void LoadDetailView(String data){
+        Intent intent = new Intent(getCurrentActivity(), DemoActivity.class);
+        intent.putExtra("item",data);
+        getReactApplicationContext().startActivity(intent);
+        System.out.println(data);
     }
 
 

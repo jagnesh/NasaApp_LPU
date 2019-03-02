@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageBackground, Text, FlatList, SafeAreaView, View, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { ImageBackground, Text, FlatList, SafeAreaView, View, ActivityIndicator, TouchableOpacity, NativeModules } from 'react-native'
 import style from '../helpers/styles'
 import { connect } from 'react-redux'
 import { getListData, loadDataFromDb, getPrependListData } from '../acitons'
@@ -52,7 +52,12 @@ class DashboardGrid extends React.Component {
     renderItemView = (item) => {
         return (
             <ImageBackground style={style.GridStyle} resizeMode='cover' source={{ uri: item.url }} >
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailView', { singleItem: item, title: item.titles })} style={style.layer}>
+                <TouchableOpacity onPress={() => {
+                    NativeModules.NavigateTo.LoadDetailView(JSON.stringify(item))
+                    //this.props.navigation.navigate('DetailView', { singleItem: item, title: item.titles })
+                    
+                }
+                } style={style.layer}>
 
                     <Text style={[style.whiteTextDate, { alignSelf: 'flex-end' }]}>{item.date}</Text>
                     <Text style={[style.whiteTextTitle, { alignSelf: 'center' }]}>{item.title}</Text>

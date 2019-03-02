@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
+android:background="#ddd"
     tools:context=".DemoActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <ImageView
+        android:id="@+id/imageBg"
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_height="match_parent" />
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Demo Text "
-        android:textColor="#000"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="10dp"
         android:onClick="goBack"
-        android:text="Go Back to React Native" />
-</LinearLayout>
+        android:src="@drawable/back"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/heading"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            style="@style/Base.TextAppearance.AppCompat.Large"
+            android:text="Heading"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail"
+                android:layout_marginTop="10dp"
+                android:textColor="#fff"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:text="Details"/>
+
+        </ScrollView>
+
+
+    </LinearLayout>
+</FrameLayout>
